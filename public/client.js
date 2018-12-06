@@ -5,6 +5,10 @@ if (!localStorage.getItem('name')) {
   document.getElementById('username').value = localStorage.getItem('name');
 }
 
+if (localStorage.getUtem('name') !== "Wyatt") {
+  document.getElementById('admin').style.display = "none"
+});
+
 
 // client-side js
 // run by the browser each time your view template referencing it is loaded
@@ -34,6 +38,13 @@ const dreamRequest = new XMLHttpRequest();
 dreamRequest.onload = getDreamsListener;
 dreamRequest.open('get', '/getMessages');
 dreamRequest.send();
+
+function clearChat() {
+  var req = new XMLHttpRequest();
+  req.open('post', '/clearChat');
+  req.send();
+  location.reload()
+}
 
 // a helper function that creates a list item for a given dream
 const appendNewDream = function(dream, name) {
