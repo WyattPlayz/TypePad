@@ -50,7 +50,7 @@ app.get('/', function(request, response) {
 // currently this is the only endpoint, ie. adding dreams won't update the database
 // read the sqlite3 module docs and try to add your own! https://www.npmjs.com/package/sqlite3
 app.get('/getMessages', function(request, response) {
-  db.all('SELECT TOP 15 from Messages', function(err, rows) {
+  db.all('SELECT TOP 15 * from Messages', function(err, rows) {
     response.send(JSON.stringify(rows));
   });
 });
