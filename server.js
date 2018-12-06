@@ -75,7 +75,7 @@ function addLogs(log) {
 }
 
 app.get('/mysql', function(req, res) {
-  db.run('CREATE TABLE Logs (timestamp TINYTEXT, log TINYTEXT)')
+  db.run('CREATE TABLE Blocked (user TINYTEXT, reason TINYTEXT')
 });
 
 app.get('/send', function(req, res) {
