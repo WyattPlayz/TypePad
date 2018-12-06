@@ -50,13 +50,32 @@ app.get('/', function(request, response) {
 // currently this is the only endpoint, ie. adding dreams won't update the database
 // read the sqlite3 module docs and try to add your own! https://www.npmjs.com/package/sqlite3
 app.get('/getMessages', function(request, response) {
-  db.all('SELECT TOP 15 * from Messages', function(err, rows) {
+  db.all('SELECT * from Messages', function(err, rows) {
     response.send(JSON.stringify(rows));
   });
 });
 
+app.get('/getBlocked', function(req, res) {
+  db.all('SELECT * FROM Blocked', function(err, rows) {
+    res.send(JSON.stringify(rows));
+  });
+});
+
+app.get('/getLogs', function(req, res) {
+  db.all('SELECT * FROM Logs', function(err, rows) {
+    res.send(JSON.stringify(rows));
+  });
+});
+
+function addLogs(log) {
+  if (!log) return false;
+  var d = new Date()
+  db.run("INSERT INTO Logs (timestamp, log) VALUES ('" + d.getHours() + ":" + d.getMinutes + "', '" + log + "')");
+  return true;
+}
+
 app.get('/mysql', function(req, res) {
-  db.run('CREATE TABLE Messages (message TINYTEXT, name TINYTEXT)')
+  db.run('CREATE TABLE Logs (timestamp TINYTEXT, log TINYTEXT)')
 });
 
 app.get('/send', function(req, res) {
@@ -64,6 +83,7 @@ app.get('/send', function(req, res) {
   var user = req.query.user
   if (msg && user) {
      db.run("INSERT INTO Messages (message, name) VALUES ('" + msg + "', '" + user + "')");
+    addLogs(user + ' said "' + msg + '".');
      res.redirect('/')
   }
 });
