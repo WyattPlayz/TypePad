@@ -67,6 +67,11 @@ app.get('/getLogs', function(req, res) {
   });
 });
 
+app.post('/clearChat', function(req, res) {
+  db.run('DELETE FROM Messages');
+  res.redirect("/");
+});
+
 function addLogs(log) {
   if (!log) return false;
   var d = new Date()
