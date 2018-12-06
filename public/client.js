@@ -5,7 +5,7 @@ if (!localStorage.getItem('name')) {
   document.getElementById('username').value = localStorage.getItem('name');
 }
 
-if (localStorage.getItem('name') !== "Wyatt") {
+if (localStorage.getItem('name') != "Wyatt") {
   document.getElementById('admin').style.display = "none"
 });
 
