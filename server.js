@@ -70,7 +70,7 @@ app.get('/getLogs', function(req, res) {
 function addLogs(log) {
   if (!log) return false;
   var d = new Date()
-  db.run("INSERT INTO Logs (timestamp, log) VALUES ('" + d.getHours() + ":" + d.getMinutes + "', '" + log + "')");
+  db.run("INSERT INTO Logs (timestamp, log) VALUES ('" + d.getHours() + ":" + d.getMinutes() + "', '" + log + "')");
   return true;
 }
 
